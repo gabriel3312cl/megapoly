@@ -11,7 +11,7 @@ export default function MonopolyBoard() {
 
     useEffect(() => {
         // Basic health check to backend
-        fetch('http://localhost:3000/')
+        fetch('http://localhost:8080/')
             .then(res => res.text())
             .then(data => setBackendStatus(data))
             .catch(err => setBackendStatus('Backend Offline'));
