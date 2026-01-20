@@ -1,0 +1,119 @@
+   0.058926300s  INFO prepare_target{force=false package_id=backend v0.1.0 (C:\Users\squir\Documentos\Proyectos\megapoly\backend) target="backend"}: cargo::core::compiler::fingerprint: fingerprint error for backend v0.1.0 (C:\Users\squir\Documentos\Proyectos\megapoly\backend)/Check { test: false }/TargetInner { name: "backend", doc: true, ..: with_path("C:\\Users\\squir\\Documentos\\Proyectos\\megapoly\\backend\\src\\main.rs", Edition2021) }
+   0.058968600s  INFO prepare_target{force=false package_id=backend v0.1.0 (C:\Users\squir\Documentos\Proyectos\megapoly\backend) target="backend"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\squir\Documentos\Proyectos\megapoly\backend\target\debug\.fingerprint\backend-89eca222afc67b5f\bin-backend`
+
+Caused by:
+    El sistema no puede encontrar el archivo especificado. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_libgit2_prerelease
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: git_midx_writer_dump
+  17: git_filter_source_repo
+  18: git_midx_writer_dump
+  19: BaseThreadInitThunk
+  20: RtlUserThreadStart
+   0.072856600s  INFO prepare_target{force=false package_id=chrono v0.4.43 target="chrono"}: cargo::core::compiler::fingerprint: fingerprint error for chrono v0.4.43/Check { test: false }/TargetInner { ..: lib_target("chrono", ["lib"], "C:\\Users\\squir\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\chrono-0.4.43\\src\\lib.rs", Edition2021) }
+   0.072880800s  INFO prepare_target{force=false package_id=chrono v0.4.43 target="chrono"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\squir\Documentos\Proyectos\megapoly\backend\target\debug\.fingerprint\chrono-75d0a222be153b6e\lib-chrono`
+
+Caused by:
+    El sistema no puede encontrar el archivo especificado. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.073190300s  INFO prepare_target{force=false package_id=num-traits v0.2.19 target="num_traits"}: cargo::core::compiler::fingerprint: fingerprint error for num-traits v0.2.19/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("num_traits", ["lib"], "C:\\Users\\squir\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\num-traits-0.2.19\\src\\lib.rs", Edition2021) }
+   0.073200700s  INFO prepare_target{force=false package_id=num-traits v0.2.19 target="num_traits"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\squir\Documentos\Proyectos\megapoly\backend\target\debug\.fingerprint\num-traits-1a72a24364706097\lib-num_traits`
+
+Caused by:
+    El sistema no puede encontrar el archivo especificado. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.075721500s  INFO prepare_target{force=false package_id=backend v0.1.0 (C:\Users\squir\Documentos\Proyectos\megapoly\backend) target="backend"}: cargo::core::compiler::fingerprint: fingerprint error for backend v0.1.0 (C:\Users\squir\Documentos\Proyectos\megapoly\backend)/Check { test: true }/TargetInner { name: "backend", doc: true, ..: with_path("C:\\Users\\squir\\Documentos\\Proyectos\\megapoly\\backend\\src\\main.rs", Edition2021) }
+   0.075734200s  INFO prepare_target{force=false package_id=backend v0.1.0 (C:\Users\squir\Documentos\Proyectos\megapoly\backend) target="backend"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\squir\Documentos\Proyectos\megapoly\backend\target\debug\.fingerprint\backend-446fb256def1c694\test-bin-backend`
+
+Caused by:
+    El sistema no puede encontrar el archivo especificado. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_libgit2_prerelease
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: git_midx_writer_dump
+  17: git_filter_source_repo
+  18: git_midx_writer_dump
+  19: BaseThreadInitThunk
+  20: RtlUserThreadStart
+    Checking num-traits v0.2.19
+    Checking chrono v0.4.43
+    Checking backend v0.1.0 (C:\Users\squir\Documentos\Proyectos\megapoly\backend)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.12s
