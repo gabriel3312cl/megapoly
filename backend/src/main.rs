@@ -40,6 +40,8 @@ async fn main() {
         .route("/login", post(handlers::login))
         .route("/game/create", post(handlers::create_game))
         .route("/game/join", post(handlers::join_game))
+        .route("/game/:code", get(handlers::get_game_state))
+        .route("/game/:code/action", post(handlers::perform_game_action))
         .route("/games", get(handlers::list_games))
         .layer(cors)
         .with_state(state);

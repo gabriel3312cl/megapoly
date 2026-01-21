@@ -24,6 +24,42 @@ pub enum GameState {
     GameOver,
 }
 
+impl Game {
+    pub fn new(id: String) -> Self {
+        Self {
+            id,
+            board: crate::domain::board::Board { spaces: vec![] }, // Should load from config
+            players: vec![],
+            current_player_index: 0,
+            state: GameState::WaitingForStart,
+            dice: Dice::new(),
+        }
+    }
+
+    pub fn add_player(&mut self, player: Player) {
+        self.players.push(player);
+    }
+
+    pub fn roll_dice(&mut self) {
+        let (d1, d2) = self.dice.roll();
+        // Move current player
+        if let Some(player) = self.players.get_mut(self.current_player_index) {
+            let moves = (d1 + d2) as usize;
+            player.position = (player.position + moves) % 40;
+            // Handle Go, Jail, etc later
+        }
+        self.state = GameState::WaitingForAction;
+    }
+
+    pub fn end_turn(&mut self) {
+        if self.players.is_empty() {
+            return;
+        }
+        self.current_player_index = (self.current_player_index + 1) % self.players.len();
+        self.state = GameState::WaitingForRoll;
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Dice {
     pub die1: u8,

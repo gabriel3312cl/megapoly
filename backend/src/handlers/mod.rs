@@ -1,6 +1,7 @@
+use crate::domain::game::Game;
 use crate::AppState;
 use axum::{
-    extract::{Json, State},
+    extract::{Json, Path, State},
     http::StatusCode,
     response::IntoResponse,
 };
@@ -102,4 +103,46 @@ pub async fn join_game(
 pub async fn list_games(State(state): State<AppState>) -> impl IntoResponse {
     let games = state.game_manager.list_public_games();
     (StatusCode::OK, Json(games)).into_response()
+}
+
+pub async fn get_game_state(
+    State(state): State<AppState>,
+    Path(game_code): Path<String>,
+) -> impl IntoResponse {
+    if let Some(game) = state.game_manager.get_game(&game_code) {
+        let game_lock = game.lock().await;
+        // Return JSON representation of game
+        return (StatusCode::OK, Json(game_lock.clone())).into_response();
+    }
+    (StatusCode::NOT_FOUND, "Game not found").into_response()
+}
+
+#[derive(Deserialize)]
+pub struct GameActionPayload {
+    action: String, // "roll", "end_turn"
+    user_id: String,
+}
+
+pub async fn perform_game_action(
+    State(state): State<AppState>,
+    Path(game_code): Path<String>,
+    Json(payload): Json<GameActionPayload>,
+) -> impl IntoResponse {
+    if let Some(game) = state.game_manager.get_game(&game_code) {
+        let mut game_lock = game.lock().await;
+
+        // Simple logic for now
+        match payload.action.as_str() {
+            "roll" => {
+                game_lock.roll_dice();
+                return (StatusCode::OK, "Rolled").into_response();
+            }
+            "end_turn" => {
+                game_lock.end_turn();
+                return (StatusCode::OK, "Turn Ended").into_response();
+            }
+            _ => return (StatusCode::BAD_REQUEST, "Unknown Action").into_response(),
+        }
+    }
+    (StatusCode::NOT_FOUND, "Game not found").into_response()
 }

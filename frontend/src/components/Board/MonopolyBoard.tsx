@@ -5,17 +5,42 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { boardData } from '../../data/boardData';
+import { useGameStore } from '@/store/useGameStore';
 
 export default function MonopolyBoard() {
-    const [backendStatus, setBackendStatus] = useState<string>('Connecting...');
+    const user = useGameStore((state) => state.user);
+    const [gameState, setGameState] = useState<any>(null);
+
+    const handleAction = async (action: string) => {
+        if (!gameCode || !user) return;
+        try {
+            await fetch(`http://localhost:8080/game/${gameCode}/action`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action, user_id: user.id })
+            });
+            // Force immediate poll or let interval catch it
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     useEffect(() => {
-        // Basic health check to backend
-        fetch('http://localhost:8080/')
-            .then(res => res.text())
-            .then(data => setBackendStatus(data))
-            .catch(err => setBackendStatus('Backend Offline'));
-    }, []);
+        if (!gameCode) return;
+
+        // Basic health check + Game State Poll
+        const interval = setInterval(() => {
+            fetch(`http://localhost:8080/game/${gameCode}`)
+                .then(res => res.json())
+                .then(data => {
+                    setGameState(data);
+                    setBackendStatus(`Connected: ${gameCode}`);
+                })
+                .catch(() => setBackendStatus('Backend Offline'));
+        }, 1000); // Faster poll for better responsiveness
+
+        return () => clearInterval(interval);
+    }, [gameCode]);
 
     // Mapping logic for 11x11 grid
     const getPosition = (index: number) => {
@@ -66,9 +91,37 @@ export default function MonopolyBoard() {
                     </Typography>
 
                     {/* Dice Area Placeholder + Backend Status */}
-                    <Box sx={{ mt: 4, transform: 'rotate(-45deg)', p: 2, border: '2px dashed #888', borderRadius: 4, textAlign: 'center' }}>
-                        <Typography variant="caption" display="block">Dice Area</Typography>
-                        <Typography variant="caption" sx={{ color: backendStatus.includes('Online') ? 'green' : 'red', fontWeight: 'bold' }}>
+                    <Box sx={{ mt: 4, transform: 'rotate(-45deg)', p: 2, border: '2px dashed #888', borderRadius: 4, textAlign: 'center', minWidth: 200 }}>
+                        <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#333' }}>GAME: {gameCode}</Typography>
+
+                        {gameState && (
+                            <Box sx={{ my: 2 }}>
+                                <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                                    {gameState.dice ? `${gameState.dice.die1} - ${gameState.dice.die2}` : '0 - 0'}
+                                </Typography>
+                                <Typography variant="caption" display="block">Total: {gameState.dice ? gameState.dice.die1 + gameState.dice.die2 : 0}</Typography>
+
+                                <Box sx={{ mt: 2, display: 'flex', gap: 1, justifyItems: 'center', justifyContent: 'center' }}>
+                                    <button
+                                        onClick={() => handleAction('roll')}
+                                        style={{ padding: '10px 20px', cursor: 'pointer', background: '#333', color: 'white', border: 'none', borderRadius: 4 }}
+                                    >
+                                        ROLL
+                                    </button>
+                                    <button
+                                        onClick={() => handleAction('end_turn')}
+                                        style={{ padding: '10px 20px', cursor: 'pointer', background: '#d32f2f', color: 'white', border: 'none', borderRadius: 4 }}
+                                    >
+                                        END TURN
+                                    </button>
+                                </Box>
+                                <Typography variant="body2" sx={{ mt: 1, fontWeight: 'bold' }}>
+                                    State: {gameState.state || 'Unknown'}
+                                </Typography>
+                            </Box>
+                        )}
+
+                        <Typography variant="caption" sx={{ color: backendStatus.includes('Connected') ? 'green' : 'red', fontWeight: 'bold' }}>
                             [{backendStatus}]
                         </Typography>
                     </Box>
